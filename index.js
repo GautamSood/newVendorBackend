@@ -7,8 +7,8 @@ import cookieParser from "cookie-parser";
 import corsOptions from './Utils/cors.js'
 import vendorAuthenticate from "./routes/Authentication/VendorAuthenticate.js";
 import vendorRoutes from "./routes/VendorRoutes.js";
-import path from "path";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import { fileURLToPath } from "url";
 
 const myapp = express();
 myapp.use(cors(corsOptions));
@@ -16,16 +16,26 @@ myapp.use(cors(corsOptions));
 
 myapp.use(express.json());
 myapp.use(cookieParser());
+
+myapp.get("/",(req,res)=>{
+  return res.status(200).json({
+    message: "simple get request working fine"
+  })
+})
+
 myapp.use("/api/v1/vendors/auth", vendorAuthenticate);
 myapp.use("/api/v1/vendors", vendorRoutes);
 
 const connectDB = async () => {
   return new Promise((res, rej) => {
     mongoose
-      .connect("mongodb+srv://dudejagarvit3:Garvit1839@cluster0.aa2bbme.mongodb.net/", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(
+        "mongodb+srv://dudejagarvit3:Garvit1839@cluster0.aa2bbme.mongodb.net/?retryWrites=true&w=majority",
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        }
+      )
       .then(() => {
         console.log("DataBase Connected");
         res("working fine");
@@ -44,25 +54,25 @@ myapp.listen(process.env.PORT || 4000, () => {
   console.log("server up and Running");
 });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-if (process.env.NODE_ENV === "production") {
-  // let port = 4000;
-  myapp.use(express.static("./vendor-frontend/build"));
-  console.log("App running in Production Mode!");
+// if (process.env.NODE_ENV === "production") {
+//   // let port = 4000;
+//   myapp.use(express.static("./vendor-frontend/build"));
+//   console.log("App running in Production Mode!");
 
-  // console.log(`${__dirname}/../Frontend/build/index.html`);
-  console.log(
-    path.resolve(__dirname, "vendor-frontend", "build", "index.html")
-  );
-  myapp.get("*", (req, res) => {
-    console.log("req: ", req.url);
-    res.sendFile(
-      path.resolve(__dirname, "vendor-frontend", "build", "index.html")
-    );
-  });
-}
+//   // console.log(`${__dirname}/../Frontend/build/index.html`);
+//   console.log(
+//     path.resolve(__dirname, "vendor-frontend", "build", "index.html")
+//   );
+//   myapp.get("*", (req, res) => {
+//     console.log("req: ", req.url);
+//     res.sendFile(
+//       path.resolve(__dirname, "vendor-frontend", "build", "index.html")
+//     );
+//   });
+// }
 
 
 export { myapp };
