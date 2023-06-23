@@ -15,6 +15,6 @@ vendorRoutes.get('/getInfo',checkVendor,getVendorInfo)
 
 vendorRoutes.post('/addInvoice', checkVendor, addInvoice);
 
-vendorRoutes.patch("/addUserInfo/:id", checkVendor, updateVendorInfo);
+vendorRoutes.patch("/addUserInfo", checkVendor, updateVendorInfo);
 
 export default vendorRoutes
