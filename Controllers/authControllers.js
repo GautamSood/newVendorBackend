@@ -50,12 +50,14 @@ const signUp = async (req, res, next) => {
     const {
       NameOfTheCompany,
       PrimaryEmailID,
-      Password
+      Password,
+      PrimaryMobileNumber,
     } = { ...req.body.data };
     const vendor = await vendorsModel.create({
       NameOfTheCompany,
       PrimaryEmailID,
-      Password
+      Password,
+      PrimaryMobileNumber,
     });
     await vendor.save();
     let token = await generateJWT(vendor);

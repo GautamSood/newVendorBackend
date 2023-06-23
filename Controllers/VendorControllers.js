@@ -57,7 +57,6 @@ const updateVendorInfo = async (req, res) => {
           State,
           PinCode,
           ContactPersonName,
-          PrimaryMobileNumber,
           SecondaryMobileNumber,
           SecondaryEmailID,
           BankName,
@@ -71,6 +70,7 @@ const updateVendorInfo = async (req, res) => {
           LowerTDSCertificate,
           LowerTaxDeductionCertificate,
           PurchaseOfService,
+          County,
         } = {
           ...req.body.data,
         };
@@ -83,7 +83,6 @@ const updateVendorInfo = async (req, res) => {
             State,
             PinCode,
             ContactPersonName,
-            PrimaryMobileNumber,
             SecondaryMobileNumber,
             SecondaryEmailID,
             BankName,
@@ -97,6 +96,7 @@ const updateVendorInfo = async (req, res) => {
             LowerTDSCertificate,
             LowerTaxDeductionCertificate,
             PurchaseOfService,
+            County,
           },
           { new: true }
         );

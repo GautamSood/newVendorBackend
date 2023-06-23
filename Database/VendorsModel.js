@@ -42,6 +42,9 @@ const VendorSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  County: {
+    type: Number
+  },
   Invoices:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'invoices'
