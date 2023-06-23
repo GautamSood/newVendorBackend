@@ -6,7 +6,7 @@ export default  function (req, callback) {
       origin: true,
       credentials: true,
       withCredentials: true,
-      methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'HEAD'],
+      methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'HEAD','PATCH'],
       allowedHeaders: ['Content-Type', 'Authorization'],
     };
 //   } else {
