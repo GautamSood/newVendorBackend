@@ -29,6 +29,7 @@ const VendorSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  CompanyEmail: String,
   SecondaryEmailID: String,
   BankName: String,
   BankAddress: String,
