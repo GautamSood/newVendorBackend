@@ -8,11 +8,16 @@ const VendorSchema = mongoose.Schema({
   },
   Address: String,
   Street: String,
-  State: String,
+  Floor: String,
+  City: String,
+  NearestTrainStation: String,
   PinCode: {
     type: Number,
   },
-  ContactPersonName: String,
+  County: {
+    type: Number,
+  },
+  Country: String,
   PrimaryMobileNumber: {
     type: Number,
   },
@@ -31,24 +36,36 @@ const VendorSchema = mongoose.Schema({
   BankIFSCCode: {
     type: String,
   },
-  TypeOfVendor: String,
-  FrequencyBillSubmission: String,
-  GSTInputCred: String,
-  TDSApplicabilityType: String,
-  LowerTDSCertificate: String,
+  SwiftCode: String,
+  WireCode: String,
+  BankCustomerSupportEmail: String,
+  BankCustomerSupportMobile: {
+    type: Number,
+  },
+  OtherDetails1: String,
+  OtherDetails2: String,
+  OtherDetails3: String,
+  OtherDetails4: String,
+  Pan: String,
+  GST: String,
+  VAT: String,
+  TINNumber: String,
+  SalesTax: String,
+  GSTEligibility: String,
+  TDSApplicabilityOnVendor: String,
+  MSEDRegisteration: String,
   LowerTaxDeductionCertificate: String,
-  PurchaseOfService: String,
   Password: {
     type: String,
     required: true,
   },
-  County: {
-    type: Number
-  },
-  Invoices:[{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'invoices'
-  }]
+
+  Invoices: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "invoices",
+    },
+  ],
 });
 
 VendorSchema.pre("save", async function (next) {
