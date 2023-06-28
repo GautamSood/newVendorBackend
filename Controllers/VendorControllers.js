@@ -8,12 +8,12 @@ const checkVendor = async (req,res,next)=>{
     try{
         const authHeader = req.headers['authorization']
         const token = authHeader && authHeader.split(' ')[1]
-        if (token == null) return res.status(401).json({ error: "please Login First" });
-
-        jwt.verify(token, process.env.JWTSecret);
-    
+        if (token == null) return res.status(401).json({ error: "please Login First" })
     const id =jwt.verify(token, process.env.JWTSecret).id;
     req.id = id;
+    const vendor  = await vendorsModel.findOne({_id:req.id})
+    req.vendor = vendor
+    if (!vendor) return res.status(404).json({ error: "Access Denied Login Again" });
     next();
     }catch(error){
         return res.status(401).json({error:error.message,"success":false})
@@ -88,7 +88,6 @@ const updateVendorInfo = async (req, res) => {
         } = {
           ...req.body.data,
         };
-        console.log(req.id);
         const updatedVendor = await vendorsModel.findByIdAndUpdate(
           {_id: req.id},
           {
@@ -127,7 +126,6 @@ const updateVendorInfo = async (req, res) => {
           },
           { new: true }
         );
-      console.log(updatedVendor);
         return res.status(200).json({
             message: "user info added",
             updatedVendor
@@ -156,7 +154,6 @@ const session = await mongoose.startSession();
         session.commitTransaction();
     res.json({message:"Invoice sucessfully added",response:addToVendor})
     }catch(error){
-        // console.log("here")
         session.abortTransaction();
         return res.status(406).json({error:error.message})
     }finally{

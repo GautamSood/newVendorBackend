@@ -12,7 +12,7 @@ function generateJWT(vendor) {
   return new Promise((resolve, reject) => {
     resolve(
       "Bearer " +
-        jwt.sign({ id: vendor._id }, "wemkfi32pr20914icm-4901ix4r24rj1xr2", {
+        jwt.sign({ id: vendor._id }, process.env.JWTSecret, {
           expiresIn: "10d",
         })
     );
@@ -22,6 +22,7 @@ function generateJWT(vendor) {
 const signIn = async (req, res, next) => {
   try {
     const { Email, Password } = req.body.data;
+    if(!Email||!Password) return res.status(401).json({error:"Add Email Address and Password In order to continue"})
     const vendor = await vendorsModel
       .findOne({ PrimaryEmailID: Email })
       .select("+Password");
@@ -32,11 +33,12 @@ const signIn = async (req, res, next) => {
     }
     let token = await generateJWT(vendor);
     // res.cookie("jwt", token, cookieOptions);
-
+    vendor.Password ="Dont't You Dare look for me"
     res.status(200)
       .json({
         message: "Successfully Loged in",
         token,
+        vendor,
       });
       
   } catch (error) {
@@ -46,7 +48,6 @@ const signIn = async (req, res, next) => {
 
 const signUp = async (req, res, next) => {
   try {
-    console.log(req.body);
     const {
       NameOfTheCompany,
       PrimaryEmailID,

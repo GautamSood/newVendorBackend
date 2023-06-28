@@ -67,6 +67,17 @@ const VendorSchema = mongoose.Schema({
       ref: "invoices",
     },
   ],
+  PAN_Attach: "String",
+  GST_Attach: "String",
+  VAT_Attach: "String",
+  TIN_Attach: "String",
+  SalesTax_Attach: "String",
+  MSED__Attach: "String",
+  CertificationOfIncorporation_Attach: "String",
+  Memorandum_Attach: "String",
+  ArticleOfAssociation_Attach: "String",
+  CancelledCheque_Attach: "String",
+  BankDetails_Attach: "String",
 });
 
 VendorSchema.pre("save", async function (next) {
